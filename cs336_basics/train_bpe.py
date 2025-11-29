@@ -1,5 +1,7 @@
+import cProfile
 from collections import Counter, defaultdict
 import os
+import time
 from typing import BinaryIO
 import regex as re
 import os
