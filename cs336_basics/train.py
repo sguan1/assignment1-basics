@@ -7,7 +7,7 @@ import torch
 from cs336_basics.model import TransformerLm
 from cs336_basics.adam_w import AdamW
 from cs336_basics.checkpointing import load_checkpoint, save_checkpoint
-from cs336_basics.learning_rate_schedule import get_learning_rate
+from cs336_basics.learning_rate_schedule import learning_rate_schedule
 from cs336_basics.data_loader import data_loader
 from cs336_basics.cross_entropy_loss import cross_entropy_loss
 from cs336_basics.gradient_clipping import gradient_clipping
@@ -111,7 +111,7 @@ if __name__ == "__main__":
     print(f"Starting training for {args.num_steps} steps...")
     t0 = time.time()
     for step in range(start_step, args.num_steps):
-        lr = get_learning_rate(step, args.learning_rate, args.min_learning_rate, args.warmup_steps, args.num_steps)
+        lr = learning_rate_schedule(step, args.learning_rate, args.min_learning_rate, args.warmup_steps, args.num_steps)
         for param_group in optimizer.param_groups:
             param_group["lr"] = lr
 
