@@ -86,13 +86,9 @@ if __name__ == "__main__":
     train_data = np.load(args.train_data_path, mmap_mode="r")
     val_data = np.load(args.val_data_path, mmap_mode="r")
 
-    model_args = {
-        "d_model": args.d_model,
-        "num_heads": args.num_heads,
-        "vocab_size": args.vocab_size,
-        "rope_theta": args.rope_theta,
-    }
-    model = TransformerLm(**model_args).to(device)
+    model = TransformerLm(d_model=args.d_model, num_heads=args.num_heads, d_ff=args.d_ff, vocab_size=args.vocab_size,
+                          context_length=args.context_length, num_layers=args.num_layers, rope_theta=args.rope_theta,
+                          device=device).to(device)
     
     optimizer = AdamW(model.parameters(), lr=args.learning_rate, weight_decay=args.weight_decay, betas=(args.beta1, args.beta2))
     start_step = 0
